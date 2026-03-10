@@ -133,7 +133,8 @@ exports.handler = async (event) => {
       return {
         statusCode: 401,
         headers: CORS,
-        body: JSON.stringify({ error: "Token invalide", detail: tokenData }),
+body: JSON.stringify({ error: "Token invalide", detail: tokenData, token_fin: (process.env.GMAIL_REFRESH_TOKEN||"").slice(-10) }),
+
       };
     }
     const accessToken = tokenData.access_token;
