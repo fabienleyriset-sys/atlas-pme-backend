@@ -1,4 +1,6 @@
 {
+  "name": "atlas-pme-backend",
+  "version": "1.0.0",
   "dependencies": {
     "pdf-parse": "^1.1.1"
   }
