@@ -1,3 +1,6 @@
+Index · HTML
+Copier
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +29,7 @@ html,body,#root{height:100%;background:#080808;}
 <div id="root"></div>
 <script type="text/babel">
 const { useState } = React;
-
+ 
 const MOCK_EMAILS = [
   { id: 1, from: "comptabilite@acier-pro.fr", sender: "Acier Pro SARL", subject: "Facture N°2024-0892 – Livraison matériaux", preview: "Veuillez trouver ci-joint notre facture...", date: "Aujourd'hui 09:14", type: "facture", amount: 4820.00, urgent: true, body: "Bonjour,\n\nVeuillez trouver ci-joint notre facture N°2024-0892 d'un montant de 4 820,00 € TTC pour la livraison de matériaux du 12 novembre 2024.\n\nÉchéance : 30 jours nets — soit le 12 décembre 2024.\nIBAN : FR76 3000 6000 0112 3456 7890 189\n\nCordialement,\nService Comptabilité — Acier Pro SARL" },
   { id: 2, from: "m.dupont@clientele-nord.com", sender: "Martin Dupont", subject: "Demande de devis urgente – Projet extension", preview: "Nous souhaitons obtenir un devis pour l'extension...", date: "Aujourd'hui 08:47", type: "commercial", urgent: true, body: "Bonjour,\n\nNous avons besoin d'un devis pour l'extension de nos locaux (environ 200m²) avant fin novembre. Budget indicatif : 150 000 €.\n\nPouvez-vous nous contacter rapidement ?\n\nMartin Dupont\nDirecteur — Clientèle Nord" },
@@ -34,7 +37,7 @@ const MOCK_EMAILS = [
   { id: 4, from: "contact@fournitures-bureau.fr", sender: "Office & Co", subject: "RE: Commande #8821 – Confirmation expédition", preview: "Votre commande a été expédiée ce jour...", date: "Hier 11:02", type: "commande", urgent: false, body: "Bonjour,\n\nVotre commande #8821 a été expédiée ce jour par Colissimo.\nNuméro de suivi : 6A12345678901\nLivraison prévue : vendredi 15 novembre.\n\nCordialement,\nService client — Office & Co" },
   { id: 5, from: "c.martin@fidelite-client.com", sender: "Claire Martin", subject: "Satisfaction travaux – Merci !", preview: "Je tenais à vous remercier pour la qualité...", date: "15/11", type: "client", urgent: false, body: "Bonjour,\n\nJe tenais à vous remercier pour l'excellente qualité des travaux réalisés dans nos bureaux la semaine dernière.\n\nNous ferons à nouveau appel à vos services.\n\nClaire Martin" },
 ];
-
+ 
 const INIT_INVOICES = [
   { id: "FAC-2024-0892",  supplier: "Acier Pro SARL",    email: "comptabilite@acier-pro.fr",        amount: 4820.00,  tva: 803.33,  ht: 4016.67,  due: "12/12/2024", iban: "FR76 3000 6000 0112 3456 7890 189", mobile: "+33 6 12 34 56 78", status: "à_valider",    category: "Matériaux" },
   { id: "FAC-2024-0931",  supplier: "TransPort Express", email: "facturation@transport-express.fr", amount: 2150.00,  tva: 358.33,  ht: 1791.67,  due: "20/12/2024", iban: null,                                mobile: "+33 7 98 76 54 32", status: "rib_manquant", category: "Transport" },
@@ -44,7 +47,7 @@ const INIT_INVOICES = [
   { id: "SFR-B2B-0992",   supplier: "SFR Business",      email: "pro@sfr.fr",                       amount: 289.00,   tva: 48.17,   ht: 240.83,   due: "05/12/2024", iban: "FR76 3000 5000 0400 9876 5432 100", mobile: "+33 6 11 22 33 44", status: "planifié",     category: "Télécom" },
   { id: "LOYER-NOV-24",   supplier: "SCI Bâtiment Nord", email: "sci@batiment-nord.fr",             amount: 3800.00,  tva: 0,       ht: 3800.00,  due: "01/12/2024", iban: "FR76 2004 1000 0100 5678 9012 300", mobile: "+33 6 77 88 99 00", status: "payé",         category: "Immobilier" },
 ];
-
+ 
 const TRANSACTIONS = [
   { id: 1, date: "14/11", label: "Virement client SARL Dubois",       type: "recette", amount:  18500.00, category: "Chantier",         tva: 3083.33, ok: true },
   { id: 2, date: "13/11", label: "Prélèvement EDF Pro Octobre",       type: "dépense", amount:  -1240.50, category: "Énergie",          tva: 206.75,  ok: true },
@@ -55,18 +58,18 @@ const TRANSACTIONS = [
   { id: 7, date: "04/11", label: "Virement client Bâtiment Sud",      type: "recette", amount:  12000.00, category: "Chantier",         tva: 2000.00, ok: true },
   { id: 8, date: "01/11", label: "Charges URSSAF T3",                 type: "dépense", amount: -11800.00, category: "Charges sociales", tva: 0,       ok: true },
 ];
-
+ 
 const fmt = n => new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(n);
 const TYPE_CFG   = { facture:{l:"Facture",c:"#FF9F47"}, commercial:{l:"Commercial",c:"#47C8FF"}, document:{l:"Document",c:"#E847FF"}, commande:{l:"Commande",c:"#47FF8A"}, client:{l:"Client",c:"#7EFF47"} };
 const STATUS_CFG = { à_valider:{l:"À valider",c:"#FF9F47",bg:"rgba(255,159,71,.10)"}, planifié:{l:"Planifié",c:"#47C8FF",bg:"rgba(71,200,255,.10)"}, payé:{l:"Payé",c:"#47FF8A",bg:"rgba(71,255,138,.10)"}, rib_manquant:{l:"⚠ RIB manquant",c:"#FF4747",bg:"rgba(255,71,71,.12)"}, rib_demandé:{l:"RIB demandé",c:"#E847FF",bg:"rgba(232,71,255,.10)"}, rib_reçu:{l:"RIB reçu ✓",c:"#47FF8A",bg:"rgba(71,255,138,.10)"} };
 const GMAIL_PROXY = "https://atlas-pme.netlify.app/.netlify/functions/gmail";
-
+ 
 async function fetchGmailEmails() {
   const res = await fetch(GMAIL_PROXY);
   if (!res.ok) { const err = await res.json().catch(()=>({})); throw new Error(err.error || `Erreur ${res.status}`); }
   return res.json();
 }
-
+ 
 async function callAI(prompt, system) {
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system,messages:[{role:"user",content:prompt}]})});
@@ -74,11 +77,11 @@ async function callAI(prompt, system) {
     return d.content?.map(b=>b.text||"").join("")||"";
   } catch { return "Erreur de connexion."; }
 }
-
+ 
 function Badge({s}) { const c=STATUS_CFG[s]||{l:s,c:"#888",bg:"#1a1a1a"}; return <span style={{padding:"2px 8px",borderRadius:"20px",fontSize:"0.63rem",fontWeight:600,color:c.c,background:c.bg}}>{c.l}</span>; }
 function Pill({t}) { const c=TYPE_CFG[t]||{l:t,c:"#888"}; return <span style={{padding:"2px 7px",borderRadius:"4px",fontSize:"0.62rem",fontWeight:700,color:c.c,border:`1px solid ${c.c}33`}}>{c.l.toUpperCase()}</span>; }
 function Kpi({label,value,sub,accent,up}) { return <div style={{background:"#111",border:"1px solid #1e1e1e",borderRadius:"11px",padding:"15px 17px",flex:1,minWidth:0}}><div style={{fontSize:"0.6rem",color:"#555",letterSpacing:".1em",textTransform:"uppercase",marginBottom:"7px"}}>{label}</div><div style={{fontFamily:"'Syne',sans-serif",fontSize:"1.55rem",fontWeight:700,color:accent||"#fff",lineHeight:1,marginBottom:"3px"}}>{value}</div>{sub&&<div style={{fontSize:"0.67rem",color:up===true?"#47FF8A":up===false?"#FF6B47":"#555"}}>{sub}</div>}</div>; }
-
+ 
 function App() {
   const [tab, setTab]             = useState("emails");
   const [gmailEmails, setGmailEmails] = useState([]);
@@ -117,7 +120,7 @@ function App() {
   const [otpVal, setOtpVal]           = useState("");
   const [otpErr, setOtpErr]           = useState(false);
   const [ribSaved, setRibSaved]       = useState({});
-
+ 
   const openPortal = (inv) => {
     setRibPMod(inv); setRibFile(null); setRibFilePreview(null);
     setOtpVal(""); setOtpErr(false);
@@ -142,14 +145,14 @@ function App() {
   const dep  = Math.abs(TRANSACTIONS.filter(t=>t.type==="dépense").reduce((s,t)=>s+t.amount,0));
   const tvac = TRANSACTIONS.filter(t=>t.type==="recette").reduce((s,t)=>s+t.tva,0);
   const tvad = TRANSACTIONS.filter(t=>t.type==="dépense").reduce((s,t)=>s+(t.tva||0),0);
-
+ 
   const TABS = [
     {id:"emails",    icon:"✉", label:"Emails",      cnt:MOCK_EMAILS.filter(e=>e.urgent).length},
     {id:"factures",  icon:"⊞", label:"Factures",    cnt:invoices.filter(i=>["à_valider","rib_manquant"].includes(i.status)).length},
     {id:"paiements", icon:"◈", label:"Paiements"},
     {id:"compta",    icon:"≡", label:"Comptabilité"},
   ];
-
+ 
   const syncGmail = async () => {
     setGmailLoading(true); setGmailError("");
     try {
@@ -158,17 +161,101 @@ function App() {
     } catch(e) { setGmailError(e.message || "Erreur de connexion Gmail"); }
     setGmailLoading(false);
   };
-
+ 
   const emails = (useGmail ? gmailEmails : MOCK_EMAILS).filter(e => filterT === "all" || e.type === filterT);
-
+ 
   const analyzeEmail = async (email) => {
     if (eAnalysis[email.id]) return;
     setELoading(p=>({...p,[email.id]:true}));
-    const r = await callAI(`Analyse cet email:\nDe: ${email.from}\nSujet: ${email.subject}\nCorps: ${email.body}\n\nFournis:\n1. RÉSUMÉ\n2. TYPE\n3. ACTIONS REQUISES\n4. PRIORITÉ\n5. Si facture: montant, échéance, IBAN`,"Tu es un assistant financier PME. Réponds en français, structuré et concis.");
-    setEAnalysis(p=>({...p,[email.id]:r}));
+ 
+    // ── Étape 1 : extraction Regex sur le corps de l'email ──
+    const body = email.body || "";
+    const clean = body.replace(/\s+/g, " ");
+ 
+    const regexExtract = () => {
+      const amountPatterns = [
+        /total\s+ttc[^\d]*?([\d\s]+[.,]\d{2})\s*€?/i,
+        /montant\s+ttc[^\d]*?([\d\s]+[.,]\d{2})\s*€?/i,
+        /net\s+[àa]\s+payer[^\d]*?([\d\s]+[.,]\d{2})\s*€?/i,
+        /total[^\d]*?([\d\s]{1,10}[.,]\d{2})\s*€/i,
+        /([\d\s]{1,10}[.,]\d{2})\s*€?\s*ttc/i,
+        /montant[^\d]*?([\d\s]+[.,]\d{2})\s*€/i,
+        /d['']un montant de[^\d]*?([\d\s]+[.,]\d{2})\s*€?/i,
+      ];
+      let amount = null;
+      for (const re of amountPatterns) {
+        const m = clean.match(re);
+        if (m) { amount = m[1].replace(/\s/g,"").replace(",","."); break; }
+      }
+ 
+      const ibanMatch = clean.match(/[A-Z]{2}\d{2}[\s\d]{10,32}/);
+      const iban = ibanMatch ? ibanMatch[0].replace(/\s/g,"") : null;
+ 
+      const duePatterns = [
+        /[eé]ch[eé]ance[^\d]*([\d]{1,2}[\/\-.][\d]{1,2}[\/\-.]\d{2,4})/i,
+        /soit le ([\d]{1,2}[\/\-.]?[\d]{1,2}[\/\-.]\d{2,4})/i,
+        /avant le ([\d]{1,2}[\/\-.][\d]{1,2}[\/\-.]\d{2,4})/i,
+        /payable le ([\d]{1,2}[\/\-.][\d]{1,2}[\/\-.]\d{2,4})/i,
+        /30 jours[^\d]*([\d]{1,2}[\/\-.][\d]{1,2}[\/\-.]\d{2,4})/i,
+      ];
+      let dueDate = null;
+      for (const re of duePatterns) {
+        const m = clean.match(re);
+        if (m) { dueDate = m[1]; break; }
+      }
+ 
+      const invPatterns = [
+        /facture\s+n[°o]?\s*:?\s*([\w\-\/]+)/i,
+        /invoice\s+n[°o]?\s*:?\s*([\w\-\/]+)/i,
+        /r[eé]f[eé]rence\s*:?\s*([\w\-\/]{4,20})/i,
+      ];
+      let invoiceNumber = null;
+      for (const re of invPatterns) {
+        const m = clean.match(re);
+        if (m) { invoiceNumber = m[1]; break; }
+      }
+ 
+      return { amount, iban, dueDate, invoiceNumber };
+    };
+ 
+    // ── Étape 2 : check si les pièces jointes ont déjà des données (depuis backend) ──
+    const attachmentData = email.attachments?.[0]?.invoiceData || null;
+ 
+    // Merge : on priorise les données des pièces jointes
+    const regex = regexExtract();
+    const extracted = {
+      amount:        attachmentData?.amount        || (regex.amount ? parseFloat(regex.amount) : null),
+      iban:          attachmentData?.iban          || regex.iban,
+      dueDate:       attachmentData?.dueDate       || regex.dueDate,
+      invoiceNumber: attachmentData?.invoiceNumber || regex.invoiceNumber,
+      amountHT:      attachmentData?.amountHT      || null,
+      tva:           attachmentData?.tva           || null,
+    };
+ 
+    const hasRegexData = extracted.amount || extracted.iban || extracted.dueDate || extracted.invoiceNumber;
+ 
+    // ── Étape 3 : fallback IA si regex n'a rien trouvé ──
+    let aiText = "";
+    if (!hasRegexData) {
+      aiText = await callAI(
+        `Analyse cet email professionnel reçu par une PME.\n\nDe : ${email.from}\nSujet : ${email.subject}\nCorps :\n${email.body}\n\nFournis une analyse structurée :\n1. RÉSUMÉ (2 lignes)\n2. TYPE (facture / commande / devis / document / commercial / client)\n3. MONTANT (si mentionné)\n4. ÉCHÉANCE (si mentionnée)\n5. IBAN (si présent)\n6. ACTIONS REQUISES (liste courte)\n7. PRIORITÉ (🔴 Urgent / 🟡 Normal / 🟢 Faible)\n8. TON (neutre / positif / relance / réclamation)`,
+        "Tu es un assistant financier PME expert. Réponds en français, de façon structurée et concise. Sois direct et actionnable."
+      );
+    }
+ 
+    // ── Résultat final ──
+    setEAnalysis(p=>({
+      ...p,
+      [email.id]: {
+        hasRegexData,
+        extracted,
+        aiText,
+        source: hasRegexData ? "regex" : "ia",
+      }
+    }));
     setELoading(p=>({...p,[email.id]:false}));
   };
-
+ 
   const runAI = async (type) => {
     setAiLoad(true); setAiPanel(true); setAiTxt("");
     const sys="Tu es un conseiller financier expert PME. Réponds en français, structuré et actionnable.";
@@ -178,7 +265,7 @@ function App() {
     else p=`Rapport novembre 2024 pour expert-comptable:\n- Recettes: ${fmt(rec)}\n- Dépenses: ${fmt(dep)}\n- Factures en attente: ${fmt(totalPay)}\n- TVA collectée/déduite: ${fmt(tvac)}/${fmt(tvad)}\n\nFormate professionnellement.`;
     const r=await callAI(p,sys); setAiTxt(r); setAiLoad(false);
   };
-
+ 
   const openRibEmail = async (inv) => {
     setRibEMod(inv); setRibDraft(""); setRibLoad(true);
     const token=Math.random().toString(36).substring(2,14).toUpperCase();
@@ -189,21 +276,21 @@ function App() {
     );
     setRibDraft(r); setRibLoad(false);
   };
-
+ 
   const sendRibEmail = (inv) => {
     upd(inv.id,"rib_demandé");
     setActions(p=>p.map(a=>a.src==="RIB"&&a.label.includes(inv.supplier)?{...a,done:true}:a));
     setRibEMod(null);
   };
-
+ 
   const S = {
     input: (extra={}) => ({width:"100%",padding:"8px 11px",background:"#111",border:"1px solid #1e1e1e",borderRadius:"6px",color:"#D0C8BD",fontSize:"0.76rem",fontFamily:"inherit",outline:"none",...extra}),
     btn: (active, extra={}) => ({padding:"8px 14px",background:active?"#C8FF47":"#1a1a1a",border:active?"none":"1px solid #222",borderRadius:"6px",color:active?"#080808":"#444",fontSize:"0.74rem",fontWeight:active?700:400,cursor:active?"pointer":"not-allowed",fontFamily:"inherit",transition:"all .15s",...extra}),
   };
-
+ 
   return (
     <div style={{display:"flex",height:"100vh",background:"#080808",color:"#D8D0C5",fontFamily:"'DM Sans',sans-serif",overflow:"hidden"}}>
-
+ 
       {/* NAV */}
       <div style={{width:"54px",background:"#080808",borderRight:"1px solid #141414",display:"flex",flexDirection:"column",alignItems:"center",padding:"13px 0",gap:"4px",flexShrink:0,zIndex:10}}>
         <div style={{width:"31px",height:"31px",background:"#C8FF47",borderRadius:"7px",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Syne',sans-serif",fontWeight:800,color:"#080808",fontSize:"0.88rem",marginBottom:"13px"}}>A</div>
@@ -218,10 +305,10 @@ function App() {
           {actions.filter(a=>!a.done).length>0&&<span style={{position:"absolute",top:"3px",right:"3px",width:"12px",height:"12px",background:"#FF9F47",borderRadius:"50%",fontSize:"0.48rem",display:"flex",alignItems:"center",justifyContent:"center",color:"#080808",fontWeight:700}}>{actions.filter(a=>!a.done).length}</span>}
         </div>
       </div>
-
+ 
       {/* MAIN */}
       <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
-
+ 
         {/* TOP BAR */}
         <div style={{height:"50px",borderBottom:"1px solid #141414",display:"flex",alignItems:"center",padding:"0 18px",gap:"14px",flexShrink:0}}>
           <div style={{fontFamily:"'Syne',sans-serif",fontWeight:700,fontSize:"0.85rem",color:"#fff",letterSpacing:".05em"}}>
@@ -253,10 +340,10 @@ function App() {
             </div>
           </div>
         </div>
-
+ 
         {/* CONTENT */}
         <div style={{flex:1,overflow:"hidden",display:"flex"}}>
-
+ 
           {/* EMAILS */}
           {tab==="emails"&&(
             <>
@@ -303,9 +390,63 @@ function App() {
                     <div style={{flex:1,padding:"17px",overflowY:"auto",borderRight:"1px solid #141414"}}><pre style={{fontSize:"0.78rem",lineHeight:1.75,color:"#A0988D",whiteSpace:"pre-wrap",fontFamily:"inherit"}}>{selEmail.body}</pre></div>
                     <div style={{width:"270px",padding:"13px",overflowY:"auto",background:"#0C0C0C"}}>
                       <div style={{fontSize:"0.6rem",color:"#555",letterSpacing:".1em",marginBottom:"9px"}}>ANALYSE IA</div>
-                      {eLoading[selEmail.id]?<div style={{display:"flex",gap:"4px",padding:"8px 0"}}>{[0,1,2].map(d=><div key={d} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#C8FF47",animation:`pu 1s ${d*.2}s infinite`}}/>)}</div>
-                        :eAnalysis[selEmail.id]?<><div style={{fontSize:"0.73rem",lineHeight:1.7,color:"#888",whiteSpace:"pre-wrap"}}>{eAnalysis[selEmail.id]}</div><button className="hv" onClick={()=>setActions(p=>[...p,{id:Date.now(),src:"Email",label:`Traiter: ${selEmail.subject.slice(0,38)}`,due:"À faire",done:false,c:"#47C8FF"}])} style={{marginTop:"10px",width:"100%",padding:"6px",background:"#1A1A1A",border:"1px solid #252525",borderRadius:"5px",color:"#C8FF47",fontSize:"0.68rem",cursor:"pointer",fontFamily:"inherit"}}>+ Créer une action</button></>
-                        :<div style={{fontSize:"0.7rem",color:"#444"}}>Analyse en cours à l'ouverture...</div>
+                      {eLoading[selEmail.id]
+                        ? <div style={{display:"flex",gap:"4px",padding:"8px 0",alignItems:"center"}}>
+                            {[0,1,2].map(d=><div key={d} style={{width:"5px",height:"5px",borderRadius:"50%",background:"#C8FF47",animation:`pu 1s ${d*.2}s infinite`}}/>)}
+                            <span style={{fontSize:"0.62rem",color:"#555",marginLeft:"6px"}}>Analyse…</span>
+                          </div>
+                        : eAnalysis[selEmail.id]
+                          ? (() => {
+                              const a = eAnalysis[selEmail.id];
+                              return (
+                                <div style={{animation:"fi .2s ease"}}>
+                                  {/* Badge source */}
+                                  <div style={{display:"inline-flex",alignItems:"center",gap:"4px",padding:"2px 7px",borderRadius:"20px",background:a.source==="regex"?"rgba(71,255,138,.08)":"rgba(200,255,71,.08)",border:`1px solid ${a.source==="regex"?"#47FF8A30":"#C8FF4730"}`,marginBottom:"10px"}}>
+                                    <div style={{width:"4px",height:"4px",borderRadius:"50%",background:a.source==="regex"?"#47FF8A":"#C8FF47"}}/>
+                                    <span style={{fontSize:"0.55rem",color:a.source==="regex"?"#47FF8A":"#C8FF47",fontWeight:600}}>{a.source==="regex"?"Extraction directe":"Analyse IA"}</span>
+                                  </div>
+ 
+                                  {/* Données structurées si regex */}
+                                  {a.hasRegexData && (
+                                    <div style={{display:"flex",flexDirection:"column",gap:"6px",marginBottom:"10px"}}>
+                                      {a.extracted.invoiceNumber && (
+                                        <div style={{background:"#111",borderRadius:"5px",padding:"7px 9px"}}>
+                                          <div style={{fontSize:"0.52rem",color:"#555",marginBottom:"2px"}}>N° FACTURE</div>
+                                          <div style={{fontSize:"0.72rem",color:"#C8FF47",fontFamily:"monospace",fontWeight:600}}>{a.extracted.invoiceNumber}</div>
+                                        </div>
+                                      )}
+                                      {a.extracted.amount && (
+                                        <div style={{background:"#111",borderRadius:"5px",padding:"7px 9px"}}>
+                                          <div style={{fontSize:"0.52rem",color:"#555",marginBottom:"2px"}}>MONTANT TTC</div>
+                                          <div style={{fontSize:"0.85rem",color:"#FF9F47",fontWeight:700}}>{fmt(a.extracted.amount)}</div>
+                                          {a.extracted.amountHT&&<div style={{fontSize:"0.6rem",color:"#555",marginTop:"2px"}}>HT : {fmt(a.extracted.amountHT)} · TVA : {fmt(a.extracted.tva)}</div>}
+                                        </div>
+                                      )}
+                                      {a.extracted.dueDate && (
+                                        <div style={{background:"#111",borderRadius:"5px",padding:"7px 9px"}}>
+                                          <div style={{fontSize:"0.52rem",color:"#555",marginBottom:"2px"}}>ÉCHÉANCE</div>
+                                          <div style={{fontSize:"0.72rem",color:"#47C8FF",fontWeight:600}}>{a.extracted.dueDate}</div>
+                                        </div>
+                                      )}
+                                      {a.extracted.iban && (
+                                        <div style={{background:"#111",borderRadius:"5px",padding:"7px 9px"}}>
+                                          <div style={{fontSize:"0.52rem",color:"#555",marginBottom:"2px"}}>IBAN</div>
+                                          <div style={{fontSize:"0.63rem",color:"#888",fontFamily:"monospace"}}>{a.extracted.iban}</div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+ 
+                                  {/* Texte IA si fallback */}
+                                  {a.aiText && (
+                                    <div style={{fontSize:"0.72rem",lineHeight:1.75,color:"#888",whiteSpace:"pre-wrap",marginBottom:"10px"}}>{a.aiText}</div>
+                                  )}
+ 
+                                  <button className="hv" onClick={()=>setActions(p=>[...p,{id:Date.now(),src:"Email",label:`Traiter: ${selEmail.subject.slice(0,38)}`,due:"À faire",done:false,c:"#47C8FF"}])} style={{width:"100%",padding:"6px",background:"#1A1A1A",border:"1px solid #252525",borderRadius:"5px",color:"#C8FF47",fontSize:"0.68rem",cursor:"pointer",fontFamily:"inherit"}}>+ Créer une action</button>
+                                </div>
+                              );
+                            })()
+                          : <div style={{fontSize:"0.7rem",color:"#444"}}>Analyse en cours à l'ouverture…</div>
                       }
                     </div>
                   </div>
@@ -313,7 +454,7 @@ function App() {
               )}
             </>
           )}
-
+ 
           {/* FACTURES */}
           {tab==="factures"&&(
             <div style={{flex:1,overflowY:"auto",padding:"13px"}}>
@@ -388,7 +529,7 @@ function App() {
               })()}
             </div>
           )}
-
+ 
           {/* PAIEMENTS */}
           {tab==="paiements"&&(
             <div style={{flex:1,overflowY:"auto",padding:"13px"}}>
@@ -422,7 +563,7 @@ function App() {
               </div>
             </div>
           )}
-
+ 
           {/* COMPTABILITÉ */}
           {tab==="compta"&&(
             <div style={{flex:1,overflowY:"auto",padding:"13px"}}>
@@ -466,7 +607,7 @@ function App() {
               </div>
             </div>
           )}
-
+ 
           {/* ACTIONS */}
           {tab==="actions"&&(
             <div style={{flex:1,overflowY:"auto",padding:"13px"}}>
@@ -482,10 +623,10 @@ function App() {
               </div>
             </div>
           )}
-
+ 
         </div>
       </div>
-
+ 
       {/* MODAL RIB EMAIL */}
       {ribEMod&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:100,animation:"fi .2s ease"}}>
@@ -535,7 +676,7 @@ function App() {
           </div>
         </div>
       )}
-
+ 
       {/* MODAL PORTAIL RIB */}
       {ribPMod&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.93)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:100,animation:"fi .2s ease"}}>
@@ -572,7 +713,7 @@ function App() {
                 );
               })()}
             </div>
-
+ 
             {ribStep==="upload"&&(
               <div style={{padding:"20px 18px"}}>
                 {ribPhone
@@ -615,7 +756,7 @@ function App() {
                 </div>
               </div>
             )}
-
+ 
             {ribStep==="otp"&&(
               <div style={{padding:"20px 18px"}}>
                 <div style={{textAlign:"center",marginBottom:"16px"}}>
@@ -640,7 +781,7 @@ function App() {
                 </div>
               </div>
             )}
-
+ 
             {ribStep==="success"&&(
               <div style={{padding:"32px 18px",textAlign:"center"}}>
                 <div style={{width:"52px",height:"52px",borderRadius:"50%",background:"rgba(71,255,138,.08)",border:"2px solid #47FF8A30",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1.5rem",margin:"0 auto 12px"}}>✓</div>
@@ -654,11 +795,11 @@ function App() {
           </div>
         </div>
       )}
-
+ 
     </div>
   );
 }
-
+ 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
